@@ -1,0 +1,59 @@
+   01-Linux-Log-Analysis
+# 🔍 Linux Log Analysis — SOC Investigation
+
+## Objective
+Kali Linux pe real log analysis ki jaise 
+ek SOC Analyst karta hai
+
+## Environment
+- OS: Kali Linux (VMware)
+- Date: March 2026
+
+## Tools Used
+- journalctl
+- lastb / last / lastlog
+- netstat / ss
+- grep, awk, cut
+
+## Investigation Steps
+
+### 1. Log Files Structure Dekhi
+/var/log/ directory mein available logs:
+- apache2/ — Web server logs
+- auth.log — Authentication logs  
+- dpkg.log — Package installation logs
+- journal/ — Systemd logs
+- btmp/wtmp — Login history
+
+### 2. System Errors Analysis
+Command: journalctl -p err -n 20 --no-pager
+
+Findings:
+| Error | Cause | Severity |
+|-------|-------|----------|
+| SMBus Host Controller | VMware virtual hardware | ✅ Normal |
+| Bluetooth hci0 failed | No BT in VM | ✅ Normal |
+| GDM Keyring warning | GNOME login issue | ⚠️ Low |
+| Network timeout | Boot time delay | ⚠️ Monitor |
+
+### 3. Login Activity Check
+Command: lastb (failed) / last (successful)
+Result: No suspicious brute force detected ✅
+
+### 4. Network Connections
+Command: netstat -tulnp
+Result: Normal system ports only ✅
+
+## SOC Conclusion
+```
+🟢 SYSTEM STATUS: CLEAN
+No malware, no brute force,
+no suspicious activity detected!
+```
+
+## Skills Demonstrated
+- Linux log analysis
+- Threat detection & triage
+- SOC investigation methodology
+- False positive identification
+```
